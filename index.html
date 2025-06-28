@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>اختبار نهائي</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black; /* لون احتياطي */
+            background-image: url('images/bg1.jpg');
+            background-size: cover;
+            transition: background 0.5s;
+        }
+        .btn {
+            padding: 15px 30px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+        /* طبقة حماية */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.3);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <button class="btn" onclick="changeBg()">تبديل الخلفية</button>
 
+    <script>
+        const backgrounds = [
+            'url("images/bg1.jpg")',
+            'url("images/bg2.jpg")'
+        ];
+        let current = 0;
+        
+        function changeBg() {
+            current = (current + 1) % backgrounds.length;
+            document.body.style.backgroundImage = backgrounds[current];
+            console.log("تم التبديل إلى: " + backgrounds[current]);
+        }
+
+        // تأكيد تحميل الصور
+        window.onload = function() {
+            const img1 = new Image();
+            const img2 = new Image();
+            
+            img1.src = 'images/bg1.jpg';
+            img2.src = 'images/bg2.jpg';
+            
+            img1.onload = function() {
+                console.log("تم تحميل bg1.jpg بنجاح");
+            };
+            
+            img2.onload = function() {
+                console.log("تم تحميل bg2.jpg بنجاح");
+            };
+            
+            img1.onerror = function() {
+                console.error("فشل تحميل bg1.jpg");
+            };
+            
+            img2.onerror = function() {
+                console.error("فشل تحميل bg2.jpg");
+            };
+        };
+    </script>
+</body>
+</html>
